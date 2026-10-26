@@ -1,11 +1,11 @@
-import { Router } from "express";
+import express from 'express'
 import pool from '../config/db.js'
 
-const healthRouter = Router()
+const healthRouter = express.Router()
 
 
 /**
- * @route GET /health
+ * @route GET /api/health
  * @desc to check whether backend is working or not?
  * @access developer
  */

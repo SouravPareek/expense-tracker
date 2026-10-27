@@ -10,9 +10,11 @@ function identifyUser(req, res, next) {
     }
 
     try{
-        const decoded = jwt.verify(token, process.env.JWT_SECRET)
+        const decoded = jwt.verify(token, process.env.JWT_SECRET, { algorithms: ['HS256'] })
 
-        req.user = decoded;
+        req.user = {
+            id: decoded.id
+        };
         next()
     }catch(err){
         return res.status(401).json({

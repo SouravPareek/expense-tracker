@@ -6,6 +6,7 @@ import {
     logoutController,
 } from "../controllers/auth.controller.js";
 import identifyUser from "../middlewares/auth.middleware.js";
+import { authLimiter } from "../middlewares/rateLimiter.js";
 
 const authRouter = express.Router();
 
@@ -14,7 +15,7 @@ const authRouter = express.Router();
  * @desc Register a new user
  * @access public
  */
-authRouter.post("/register", registerController);
+authRouter.post("/register", authLimiter, registerController);
 
 
 /**
@@ -22,7 +23,7 @@ authRouter.post("/register", registerController);
  * @desc Login a user
  * @access public
  */
-authRouter.post("/login", loginController);
+authRouter.post("/login", authLimiter, loginController);
 
 
 /**

@@ -1,6 +1,15 @@
 import { SYSTEM_USER_ID } from "../config/constants.js";
 import pool from "../config/db.js";
 
+
+export async function findVisibleCategoryById(categoryId, userId){
+    const [rows] = await pool.query(
+        'SELECT id FROM categories WHERE id = ? AND user_id IN(?, ?)',
+        [categoryId, SYSTEM_USER_ID, userId]
+    )
+    return rows.length > 0
+}
+
 export async function getAllCategories(userId){
     const [rows] = await pool.query(
         'SELECT id, name, (user_id = ?) as is_custom FROM categories WHERE user_id = ? OR user_id = ? ORDER BY is_custom, name',
